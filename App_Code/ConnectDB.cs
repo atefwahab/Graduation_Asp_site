@@ -104,7 +104,7 @@ public List<string> Select(string query,string[] table_names){
              
              for(int i=0; i<table_names.Length;i++){
                  list.Add(dataReader[table_names[i]] + "");
-                 //list.Add(dataReader["student_id"] + "");
+               
              }
          }catch(Exception e){
              err=0;
