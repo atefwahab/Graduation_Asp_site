@@ -113,7 +113,9 @@ public List<string> Select(string query,string[] table_names){
             
 
         }
+        this.CloseConnection();
         return list;
+    
 }
 
 

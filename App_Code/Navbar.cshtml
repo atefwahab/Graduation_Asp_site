@@ -1,0 +1,39 @@
+﻿@helper BeforeLogin(){
+ @:<div class="search " id="beforeLogin" >
+               @:<div class="col-lg-2">
+                @:<form method="post">
+                <input type="text" name="username" class="form-control InputForm" placeholder="اسم المستخدم">
+                <input type="password" name="password" class="form-control InputForm" placeholder="كلمة المرور">
+                @:</div>
+
+                @:<div class="col-lg-2">
+                <input type="submit" class="btn btn-info" onclick="login()" value="تسجيل الدخول ">
+                   
+               @:</div>
+              @:</form>
+
+           @:</div>
+}
+
+@helper AfterLogin(string name,string imgUrl){
+   <!-- After Login Div -->
+         <div class="afterLogin" >
+
+            <div class="col-lg-3 dropdown drop">
+             
+              
+
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                   <img src="@imgUrl" class="img-responsive profile-image"><h5>@name</h5>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="personal.cshtml">صفحتى الشخصية</a></li>
+                </ul>
+               
+              
+              <input type="submit" class="btn btn-info pull-right" onclick="logout()"value="خروج">
+            </div>
+
+            
+           </div>
+}

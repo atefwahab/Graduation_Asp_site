@@ -1,7 +1,18 @@
 ﻿@{
-                
-    
-  AuthData obj=new AuthData();
+         AuthData obj;    
+    if(Session["Current"]==null)
+    {
+          obj=new AuthData();
+         Session["Current"]=obj;
+    }
+    else
+    {
+        obj =(AuthData)Session["Current"];
+    }
+ 
+     if(IsPost){
+      obj.getAuth(Request["username"],Request["password"]);
+      }
 }
 
 <!DOCTYPE html>
@@ -15,9 +26,10 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Our Site </title>
 
+    
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styleall.css">
     <link href="http://fonts.googleleapis.com/css?family=raleway:400,300,500,600,700"rel="stylesheet"type="text/css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/notosanskufiarabic.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,7 +40,7 @@
     <![endif]-->
   </head>
   <body>
-    <!--Header-->
+     <!--Header-->
 
     <header id="home">
       <div class= "container-fluid">
@@ -51,85 +63,54 @@
 
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse " id="mainmenu">
+                            <div class="collapse navbar-collapse " id="mainmenu"   role="tabpanel">
+
                             <ul class="nav navbar-nav mainmenu">
-                              <li class="active"><a href="#home">@DateTime.Now.DayOfWeek الصفحة الرئيسية <span class="sr-only">(current)</span></a></li>
+                              <li class="active" role="presentation"><a href="#home"> الصفحة الرئيسية <span class="sr-only">(current)</span></a></li>
                               <li><a href="#courses">المواد الدراسية</a></li>
                               <li><a href="#">الجداول الدراسيه  </a></li>
-                              <li><a href="#">عن الكلية</a></li>
+                              <li ><a href="#about">عن الكلية</a></li>
                               <!-- After Login-->
                               <!--<li><a href="#">تقاريرى</a></li>-->
-                              <li><a href="#">اتصل بنا </a></li>
+                              <li ><a href="#contact">اتصل بنا </a></li>
 
                 
                              </ul>
+                             <ul>
+
               
               
                              </div><!-- /.navbar-collapse -->
       
-               </div>
              </div>
+             </div>  
            <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+       
+           @{
+            if(obj.loginFlage==false){
+           @Navbar.BeforeLogin()
+            if(obj.loginTry!=0){
+                <script>
+                    alert("@obj.message");
+                </script>
+            }
 
-           
-            <div class="search " id="beforeLogin" >
-               <div class="col-lg-2">
-                <form method="post">
-                <input type="text" class="form-control InputForm" name="username" placeholder="اسم المستخدم">
-                <input type="password" class="form-control InputForm" name="password" placeholder="كلمة المرور">
-                </div>
+            }else{
+                @Navbar.AfterLogin(obj.name,obj.user_img)
+            }
 
-                <div class="col-lg-2">
-                <input type="submit" class="btn btn-info" onclick="login()" value="تسجيل الدخول ">
-                    </form>
-                    @{
-                        
-           if(IsPost){
-      obj.getAuth(Request["username"],Request["password"]);
-      if(obj.loginFlage){
-          <p> بنجااح @obj.gotUsername تم تسجيل دخول </p>
-      }else{
-          <p>@obj.message</p>
-      }
-  }
-               
-                   }
-
-               </div>
-              
-              
-
-
-                
-
-
-               
-
-           </div>
 
           
+}
 
-
-          <!-- After Login Div -->
-         <!-- <div class="afterLogin" >
-
-            <div class="col-lg-3">
-              <img src="images/student.jpg" class="img-responsive profile-image">
-              <a href="#">محمد عاطف</a>
-              
-              <input type="submit" class="btn btn-info pull-right" onclick="logout()"value="تسجيل خروج">
-            </div>
-
-            
-           </div>
-         -->
+         
+         
        </nav>
-        </div>
+      </div>
 
         <!-- <div class="clearfix"></div> -->
        
-
-      <!-- Live Courses div Beginning -->
+ <!-- Live Courses div Beginning -->
              <div class="liveo" >
               <div class="container-fluid">
 
@@ -348,7 +329,7 @@
 
 
 
-
+<!-------------------------------------------------------------------------------------------------->
 
 
 
@@ -359,41 +340,128 @@
 
        <div class="clearfix"></div>
 
+
        <!-- Begin of courses div -->
        <div class="courses" id="courses">
      <div class="container-fluid">
         <div class="row coursesRow">
         
          
-  <div class="btn-group-vertical col-lg-10 pull-center  icons " role="group" aria-label="...">
-            <a href="#" class="btn btn-info btn-lg btn-block ">الفرقة الاولي </a><br>
-            <a href="#" class="btn btn-info btn-lg btn-block" >الفرقة الثانية </a><br>
-             <a class="btn btn-info  btn-lg" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  <div class="btn-group-vertical col-lg-11 pull-center  icons " role="group" aria-label="...">
+            <a href="index2.html" class="btn btn-primary btn-lg btn-block ">الفرقة الاولي </a><br>
+            <a href="index2.html" class="btn btn-primary btn-lg btn-block" >الفرقة الثانية </a><br>
+             <a class="btn btn-primary  btn-lg" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     الفرقة الثالثة
             </a>
             <div class="collapse" id="collapseExample">
                <div class="well">
-                    <a href="Page.cshtml" class="btn btn-info btn-lg  btn-block ">IS </a>
-                    <a href="#" class="btn btn-info btn-lg  btn-block ">CS </a>
+                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block ">IS </a>
+                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block ">CS </a>
            </div>
            </div> <br>
 
 
 
 
-    <a class="btn btn-info  btn-lg" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+    <a class="btn btn-primary  btn-lg" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
                    الفرقة الرابعة
             </a>
             <div class="collapse" id="collapseExample2">
                <div class="well">
-                    <a href="#" class="btn btn-info btn-lg  btn-block   ">IS </a>
-                    <a href="#" class="btn btn-info btn-lg  btn-block  ">CS </a>
+                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block   ">IS </a>
+                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block  ">CS </a>
               </div>
           </div>
  </div>
   </div>
    </div>
     </div>
+<!-------------------------------------------------------------------------------------------------------------------------------------------->
+<!--about-->
+<div class="about" id="about">
+         <div class="container">
+              <div class="row">
+                  <!-- <div class="col-lg-12">-->
+                   
+
+                   <div class="col-lg-12">
+
+                     <p class=" forfci   text-right  " ><font size="36" color="#FFFF00">عن الكلية</font> <br><br><br>
+                       <class=" text-right">تؤدي كليات الحاسبات والمعلومات خدمة عظيمة للمجتمع لاسيما مع انتشار استخدام الحاسب الالي ودخولة كافة القطاعات واتجاه  
+                        الدولة بمؤسساتها الي التحول الي الحكومة والمؤسسات الالكترونية ويجد خريجين تلك الكليات فرص عمل بسهولة نظرا للطلب
+                        المتزايد علي<br> المهارات التي يمتلكونها ولهذا السبب ولدت كليات الحاسبات ككليات قمة وهو مالا يحدث لغيرها من الكليات , وتولي 
+                        جامعة قناة السويس<br> عناية خاصة لكلية الحاسبات والمعلومات وذلك لتقوي من بنيانها وتثبيت اقدامها , تعتبر الكلية رافدا هاما لاخصائي
+                        الحاسب ذوي المهارات<br> العالية في مجال المكونات المادية ومجال البرمجيات كما تعتبر ذراعا نشطا للبحث العلمي في هذا القطاع حيث
+                        تنجز سنويا ابحاث علمية<br> .علي إيدي ابنائها </p>
+                        
+                        </div>
+                       <!-- <div class="col-lg-2"><img src="images1/fci.jpg" width="620" class="img-responsive" alt="bg"></div>-->
+
+                   
+              </div>
+
+
+         </div>
+
+
+    </div>
+    <!--End of About-->
+
+    <!--srart of contact-->
+    <div class="contact " id="contact">
+   
+      <div class="row">
+        
+       
+  <div class="col-lg-9">
+    <form>
+    
+    
+  <h1 class="text-right" ><font size="36" color="#FFFF00">اتصل بنا</font></h1><br>
+ <center> <div class="form-group">
+    
+    
+    <input type="text" class="form-control to_contact" id="exampleInputEmail1" placeholder="Please Write Your name here !">
+  </div>
+  
+  <div class="form-group">
+    
+    <input type="text" class="form-control to_contact" id="exampleInputPassword1" placeholder="Please Write Your e-mail here !">
+  </div>
+ <div class="form-group">
+ 
+  <textarea class="form-control to_contact" rows="9" placeholder="Please Write Your message here !"></textarea>
+</div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-3 col-lg-10">
+  
+  <button type="submit" class="btn btn-default"><a href="#"><font color="#ff0">ارسل</font></a></button>
+
+</div>
+</div>
+
+
+</form>
+</div></center><br><br><br>
+<!--<div class="col-md-3 col-md-push-1">-->
+    <div class="myContacts">
+ <img src="images1/fb.png"><a target="_blank" href="https://www.facebook.com/fci.union.page"> Facebook.com/FCI.Union</a> <br><br><br>
+  
+ <img src="images1/index_09.png"><a target="_blank" href="https://www.youtube.com/fci.union.page"> Youtube.com/FCI.Union</a> </div>
+
+
+
+
+
+
+
+
+</div>
+</div>
+<!--End of Contact Us-->
+    
+
 
 
     

@@ -1,5 +1,7 @@
 ﻿@{
-   ConnectDB obj = new ConnectDB(); 
+   
+   var purchasePrice = 120;
+
 }
 
 <!DOCTYPE html>
@@ -11,19 +13,30 @@
     </head>
     <body>
 
-        @{
-          //obj.getAuth("ahmed_adel","ahmed_adel");
+       @{
+        //  o.getAuth("ahmed_adel","ahmed_adel");
+         
+       /*  int student_id=1;
+
           
-         List<string> list = new List<string>();
-         string [] arr = new string[3];
-         arr[0]="user_id";
-         arr[1]="userName";
-         arr[2]="student_id"; 
-         list=(obj.Select("SELECT `user_id`, `userName`, `userPass`, `student_id`, `stuff_id` FROM `users` WHERE `userName` = 'ahmed_adel'",arr));
-         foreach(string li in list){
+         List<string> lo = new List<string>();
+         string [] arr = new string[1];
+         arr[0]="Student_name";
+         
+         lo=(obj.Select("SELECT `Student_name` FROM `students` WHERE `student_id`="+student_id,arr));
+         foreach(string li in lo){
              <h1> @li </h1>
+        
+
+         }*/
+         if(Session["C"]!=null){
+             <h1>it doesn't equal null</h1>
+         }else{
+             <h1>IT emplate is EqualityComparer null</h1>
          }
+         }
+         
       
-        }
+        
     </body>
 </html>

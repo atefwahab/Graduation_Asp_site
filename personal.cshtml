@@ -1,0 +1,197 @@
+﻿@{
+    AuthData obj;
+    obj= (AuthData) Session["Current"];
+    Session["current"]=obj;
+     if(IsPost){
+      obj.getAuth(Request["username"],Request["password"]);
+      }
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>title </title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styleall.css">
+    <link href="http://fonts.googleleapis.com/css?family=raleway:400,300,500,600,700"rel="stylesheet"type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/notosanskufiarabic.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+    <body>
+
+        <div class="per-page" id="per-page">
+            <div class= "container-fluid">
+        <nav class="row mainrow navbar-fixed-top">
+          <div class="col-lg-1 logo"><img src="images\logo.png" class="img-responsive logo" alt="logo"></div>
+         <!-- .------------------------------------------------------------------------------------------------------------------------ -->
+           <div class="col-lg-7 menu">
+                   <div class="navbar navbar-default">
+          
+                      <!-- Brand and toggle get grouped for better mobile display -->
+                     <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainmenu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>  
+             
+                      </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse " id="mainmenu"   role="tabpanel">
+
+                            <ul class="nav navbar-nav mainmenu">
+                              <li class="active" role="presentation"><a href="/#home"> الصفحة الرئيسية <span class="sr-only">(current)</span></a></li>
+                              <li><a href="/#courses">المواد الدراسية</a></li>
+                              <li><a href="#">الجداول الدراسيه  </a></li>
+                              <li ><a href="/#about">عن الكلية</a></li>
+                              <!-- After Login-->
+                              <!--<li><a href="#">تقاريرى</a></li>-->
+                              <li ><a href="/#contact">اتصل بنا </a></li>
+
+                
+                             </ul>
+                             <ul>
+
+              
+              
+                             </div><!-- /.navbar-collapse -->
+      
+             </div>
+             </div>  
+           <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+       
+           @{
+            if(obj.loginFlage==false){
+           @Navbar.BeforeLogin()
+            if(obj.loginTry!=0){
+                <script>
+                    alert("@obj.message");
+                </script>
+            }
+
+            }else{
+                @Navbar.AfterLogin(obj.name,obj.user_img)
+            }
+
+
+          
+}
+
+         
+         
+       </nav>
+      </div>
+     <div class="container-fluid">
+        <div class="row per-pageRow">
+
+         <div class="pull-right  changepass col-lg-7"  role="group" aria-label="...">
+           
+           <h3>الاسم : <span> اسراء سعد</span></h3>
+           <h3>الفرقة :<span> الرابعة </span></h3>
+           <h3>القسم :<span>علوم الحاسب </span></h3>
+
+            <a class="btn  btn-primary btn-lg Change" data-toggle="collapse" href="#collapseExample3" 
+              aria-expanded="false" aria-controls="collapseExample3">  تغيير كلمة المرور -
+              </a>
+
+              <!-- start of collapse -->
+
+                      <div class="collapse" id="collapseExample3">
+                     <div class="well">
+
+
+<form>
+  <div class="form-group">
+    <label for="current password">كلمة المرور الحالية </label>
+    <input type="password" class="form-control" id="current password" placeholder="current password">
+  </div>
+  <div class="form-group">
+    <label for="newPassword">كلمة المرور الجديدة</label>
+    <input type="password" class="form-control" id="new password" placeholder="new password">
+  </div>
+  <div class="form-group  ">
+    <label for="newPassword">تأكيد كلمة المرور </label>
+    <input type="password" class="form-control" id="confirm password" placeholder="confirm password">
+  </div>
+
+  <div class="checkbox">
+        <label>
+       <h7>   <input type="checkbox"> Remember me
+       </h7> </label>
+      </div>
+
+   <div class="modal-footer">
+        <button type="button" class="btn btn-defult" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-info">Save changes</button>
+      </div>
+  
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        </div>
+        <!-- end of changepass -->
+
+    <!-- End of Changepass button -->
+</div>
+
+
+  <div class="col-lg-5 profile-pic ">
+
+    <img src="images\profile-pic.jpg" class="img-responsive profile-pic" alt="profile-pic">
+  <div class="form-group   upload-picture  ">
+    <label for="exampleInputFile">upload picture</label>
+    <input type="file" id="exampleInputFile">
+  </div>
+
+
+       </div>
+  </div>
+</div>
+</div>
+
+        
+          
+
+
+
+
+
+
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/site.js"></script>
+        
+    </body>
+</html>
