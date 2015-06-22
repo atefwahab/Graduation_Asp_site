@@ -1,6 +1,5 @@
 ﻿@{
-   
-   var purchasePrice = 120;
+   course obj = new course();
 
 }
 
@@ -14,27 +13,37 @@
     <body>
 
        @{
-        //  o.getAuth("ahmed_adel","ahmed_adel");
-         
-       /*  int student_id=1;
+     /*      obj.setID("1");
 
-          
-         List<string> lo = new List<string>();
-         string [] arr = new string[1];
-         arr[0]="Student_name";
-         
-         lo=(obj.Select("SELECT `Student_name` FROM `students` WHERE `student_id`="+student_id,arr));
-         foreach(string li in lo){
-             <h1> @li </h1>
-        
+ <h1>@obj.course_name</h1>
+<h1>@obj.course_duration</h1>
+<h1>@obj.course_grade</h1>
+<h1>@obj.course_department</h1>
+<h1>about : @obj.course_about</h1>
+ <h1>prof: @obj.course_prof</h1>
+        <h1>course lab = @obj.course_location</h1>
+<h1>course_map = @obj.course_map_link</h1>
+        <h1>course begins = @obj.course_begin_time</h1>
+<h1>course ends = @obj.course_end_time</h1>
+<h1>course day = @obj.course_day</h1>*/
 
-         }*/
-         if(Session["C"]!=null){
-             <h1>it doesn't equal null</h1>
-         }else{
-             <h1>IT emplate is EqualityComparer null</h1>
-         }
-         }
+
+Courses o = new Courses("4","1","9");
+foreach(course ob in o.objs_list){
+    
+    <h1>@ob.course_name</h1>
+<h1>@ob.course_duration</h1>
+<h1>@ob.course_grade</h1>
+<h1>@ob.course_department</h1>
+<h1>about : @ob.course_about</h1>
+ <h1>prof: @ob.course_prof</h1>
+        <h1>course lab = @ob.course_location</h1>
+<h1>course_map = @ob.course_map_link</h1>
+        <h1>course begins = @ob.course_begin_time</h1>
+<h1>course ends = @ob.course_end_time</h1>
+<h1>course day = @ob.course_day</h1>
+}
+       }
          
       
         

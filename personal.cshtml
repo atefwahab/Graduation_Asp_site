@@ -1,9 +1,19 @@
 ﻿@{
+    
     AuthData obj;
     obj= (AuthData) Session["Current"];
     Session["current"]=obj;
-     if(IsPost){
-      obj.getAuth(Request["username"],Request["password"]);
+    if(obj.loginFlage==false){
+        Response.Redirect("/");
+    }
+      if(IsPost){
+         //let me try one solution it may work
+         if(obj.loginFlage==true){
+             obj = new AuthData();
+             Session["Current"]=null;
+             Response.Redirect("/");
+         }else{
+      obj.getAuth(Request["username"],Request["password"]);}
       }
 }
 
@@ -16,7 +26,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>title </title>
+    <title>@obj.name.ToUpper() Personal Page</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -102,9 +112,13 @@
 
          <div class="pull-right  changepass col-lg-7"  role="group" aria-label="...">
            
-           <h3>الاسم : <span> اسراء سعد</span></h3>
-           <h3>الفرقة :<span> الرابعة </span></h3>
-           <h3>القسم :<span>علوم الحاسب </span></h3>
+           <h3>الاسم : <span> @obj.name</span></h3>
+           @{if(obj.student_id!=0){
+               
+          <h3>الفرقة :<span> @obj.grade </span></h3>
+}}
+           <h3>القسم :<span>@obj.departmentName </span></h3>
+             <h3>المهنة :<span>@obj.profession </span></h3>
 
             <a class="btn  btn-primary btn-lg Change" data-toggle="collapse" href="#collapseExample3" 
               aria-expanded="false" aria-controls="collapseExample3">  تغيير كلمة المرور -
@@ -130,11 +144,7 @@
     <input type="password" class="form-control" id="confirm password" placeholder="confirm password">
   </div>
 
-  <div class="checkbox">
-        <label>
-       <h7>   <input type="checkbox"> Remember me
-       </h7> </label>
-      </div>
+  
 
    <div class="modal-footer">
         <button type="button" class="btn btn-defult" data-dismiss="modal">Cancel</button>
@@ -166,7 +176,7 @@
 
   <div class="col-lg-5 profile-pic ">
 
-    <img src="images\profile-pic.jpg" class="img-responsive profile-pic" alt="profile-pic">
+    <img src="@obj.user_img" class="img-responsive profile-pic" alt="profile-pic">
   <div class="form-group   upload-picture  ">
     <label for="exampleInputFile">upload picture</label>
     <input type="file" id="exampleInputFile">
