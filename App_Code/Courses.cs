@@ -10,17 +10,20 @@ public class Courses
     private ConnectDB obj=new ConnectDB();
     public List<string> list=new List<string>();
     public  course [] objs_list;
+    public string message="لا توجد محاضرات حالياً";
     public Courses()
     {
         //
         // TODO: Add constructor logic here
         //
+        this.message="لا توجد محاضرات حالياً";
+        this.objs_list= new course[0]; 
     }
     // this Consrtuctor used in know the courses for a specific year and depratment
     public Courses(string department_id,string grade){
          List<string> list = new List<string>();
         string [] arr=new string[]{"course_id"};
-        list=obj.Select("SELECT `course_id` FROM `course` WHERE `department_id`="+department_id+" AND `grade`="+grade,arr);
+        list=obj.Select("SELECT `course_id` FROM `course_stuff` WHERE `department_id`="+department_id+" AND `grade`="+grade,arr);
       this.list=list;
       
       createObjects(list.Count);

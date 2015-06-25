@@ -207,6 +207,7 @@ font-size: 10px;
       background: #fff ;
       
       border: 5px solid #000;
+      direction: rtl;
 
     }
 .live h1{
@@ -221,7 +222,7 @@ font-weight: bold;
 }
 .details{
   float: right;
-  max-width: 300px;
+  max-width: 340px;
 }
 .live h3{
   margin-right: 20px;
@@ -247,6 +248,7 @@ font-weight: bold;
   border: 2px solid #000;
   border-radius: 5px;
   margin-left: 30px;
+    margin-right: 360px;
 margin-top: 115px;
 }
 .liveHeader {
@@ -274,13 +276,16 @@ margin-top: 115px;
      }
      .liveParagraph a{color:#e4223d; 
       font-weight: bold;
-      margin-left: 5px;}
+      margin-left: 5px;
+        margin-right: 190px;
+}
      
 .live iframe{
   border-radius: 5px;
   border: 1px  solid #000;
   margin-left: 30px;
   margin-top: 15px;
+  margin-right: 20px;
 }
 .controleft{
 
@@ -465,5 +470,10 @@ color: white;
 text-decoration: none;
 
 
+}
+#empty{
+    color: #ffffff;
+      margin-left: 280px;
+  margin-top: 220px;
 }
 

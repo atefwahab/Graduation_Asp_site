@@ -1,3 +1,6 @@
+body{
+    background: url(images/hd-wallpaper-computer-hd.jpg) center repeat-y;
+}
 .Crs img{
     /* border-radius: 0 0 3px 3px  ;*/
      width: 205px;
@@ -35,7 +38,7 @@
       /*mwad el fr2a el 2wola */
       .courses{
       /*  background-color: #0841ac;*/
-      background: url(images/hd-wallpaper-computer-hd.jpg) center no-repeat;
+      background: url(images/hd-wallpaper-computer-hd.jpg) center repeat-y !important;
       min-height:760px;
       width: 100%;
 

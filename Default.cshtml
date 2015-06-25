@@ -1,16 +1,58 @@
 ﻿@{
-         AuthData obj;    
+         AuthData obj;
+         Courses CoursesObj;
+
+             
     if(Session["Current"]==null)
     {
           obj=new AuthData();
          Session["Current"]=obj;
+         
     }
     else
     {
         obj =(AuthData)Session["Current"];
+       
     }
+    
+
+    
  
      if(IsPost){
+         //grade one general
+         if(Request.Form["1g"]!=null){
+             Courses m = new Courses("3","1");
+             Session["m"]=m;
+             Response.Redirect("courses.cshtml");
+         }
+         // grade two general
+         if(Request.Form["2g"]!=null){
+             Courses m = new Courses("3","2");
+             Session["m"]=m;
+             Response.Redirect("courses.cshtml");
+         }
+         // grade 3 is
+         if(Request.Form["3is"]!=null){
+             Courses m = new Courses("2","3");
+             Session["m"]=m;
+             Response.Redirect("courses.cshtml");
+         }
+         if(Request.Form["3cs"]!=null){
+             Courses m = new Courses("1","3");
+             Session["m"]=m;
+             Response.Redirect("courses.cshtml");
+         }
+         if(Request.Form["4is"]!=null){
+             Courses m = new Courses("2","4");
+             Session["m"]=m;
+             Response.Redirect("courses.cshtml");
+         }
+         if(Request.Form["4cs"]!=null){
+             Courses m = new Courses("1","4");
+             Session["m"]=m;
+             Response.Redirect("courses.cshtml");
+         }
+         
          //let me try one solution it may work
          if(obj.loginFlage==true){
              obj = new AuthData();
@@ -18,6 +60,18 @@
          }else{
       obj.getAuth(Request["username"],Request["password"]);}
       }
+
+      if(obj.loginFlage){
+        try{
+        CoursesObj=new Courses(obj.grade,obj.department_id,DateTime.Now.Hour.ToString());}
+        catch{
+        CoursesObj=new Courses();    
+        }
+    }else{
+        CoursesObj=new Courses(DateTime.Now.Hour.ToString());
+    }
+    
+
 }
 
 <!DOCTYPE html>
@@ -139,15 +193,18 @@
 
                     <!-- Wrapper for slides -->
                      <div class="carousel-inner" role="listbox">
-                      <!-- First item -->
+
+                         
+                          @{
+                            
+                              if((CoursesObj.objs_list.Length==0)){
+                                  <h1 id="empty">@CoursesObj.message</h1>
+                              }else{
+                              for(int i=0;i<CoursesObj.objs_list.Length;i++){
+
+                                  if(i==0){
+                                      <!-- First item -->
                       <div class="item active">
-
-
-
-
-
-
-
 
                     <!-- Live Courses div Beginning -->
                     <div class="live">
@@ -155,22 +212,22 @@
                        <div class="liveHeader">
                    
 
-                        <h1>مقدمة علوم الحاسب</h1>
+                        <h1>@CoursesObj.objs_list[i].course_name</h1>
                         
-                         <h6>بدأت منذ 6 دقائق</h6>
+                         <h6>بدأت منذ  @((DateTime.Now.Hour)-int.Parse(CoursesObj.objs_list[i].course_begin_time)) ساعة</h6>
                          <!-- End of liverHeader -->
                          </div>
 
                          <div class="details">
 
-                         <h3 class="pull-right">أستاذ دكتور: محمد وحيد <span class="glyphicon glyphicon-record"></span> </h3>
-                         <h3 class="pull-right">تبدأ الساعة: 9:00</h3>
-                         <h3 class="pull-right">تنتهى الساعة: 11:00</h3>
-                         <h3 class="pull-right">المكان: مدرج 4</h3>
+                         <h3 class="pull-right"><span class="glyphicon glyphicon-record"></span>أستاذ دكتور: @CoursesObj.objs_list[i].course_prof  </h3>
+                         <h3 class="pull-right">تبدأ الساعة: @CoursesObj.objs_list[i].course_begin_time</h3><br>
+                         <h3 class="pull-right">تنتهى الساعة: @CoursesObj.objs_list[i].course_end_time</h3><br><br><br><br><br><br>
+                         <h3 class="pull-right">المكان: @CoursesObj.objs_list[i].course_location</h3>
               
                          <div class="liveParagraph">
                             
-                        <p>مادة علوم الحاسب هى من المواد الأساسية بكلية الحاسبات والمعلومات ويجب تدريسها</p>
+                        <p>@CoursesObj.objs_list[i].course_about</p>
                         <a href="#">اعرف أكثر</a>
                           
                        <!-- End OF liveParagraph -->
@@ -193,33 +250,31 @@
 
 
         </div>
-
-
-
-        <!-- item 3 -->
-        <div class="item">
-          <!-- Live Courses div Beginning -->
+                                  }else{
+                            <!-- item 3 -->
+                          <div class="item">            
+                               <!-- Live Courses div Beginning -->
                     <div class="live">
 
                        <div class="liveHeader">
                    
 
-                        <h1>مقدمة قواعد البيانات</h1>
+                        <h1>@CoursesObj.objs_list[i].course_name</h1>
                         
-                         <h6>بدأت منذ 4 دقائق</h6>
+                         <h6>بدأت منذ  @((DateTime.Now.Hour)-int.Parse(CoursesObj.objs_list[i].course_begin_time)) ساعة</h6>
                          <!-- End of liverHeader -->
                          </div>
 
                          <div class="details">
 
-                         <h3 class="pull-right">أستاذ دكتور: محمد وحيد <span class="glyphicon glyphicon-record" style="color:#7f8c8d;"></span> </h3>
-                         <h3 class="pull-right">تبدأ الساعة: 9:00</h3>
-                         <h3 class="pull-right">تنتهى الساعة: 11:00</h3>
-                         <h3 class="pull-right">المكان: مدرج 4</h3>
+                         <h3 class="pull-right"><span class="glyphicon glyphicon-record"></span>أستاذ دكتور: @CoursesObj.objs_list[i].course_prof  </h3>
+                         <h3 class="pull-right">تبدأ الساعة: @CoursesObj.objs_list[i].course_begin_time</h3><br>
+                         <h3 class="pull-right">تنتهى الساعة: @CoursesObj.objs_list[i].course_end_time</h3><br>
+                         <h3 class="pull-right">المكان: @CoursesObj.objs_list[i].course_location</h3><br>
               
                          <div class="liveParagraph">
                             
-                        <p>مادة علوم الحاسب هى من المواد الأساسية بكلية الحاسبات والمعلومات ويجب تدريسها</p>
+                        <p>@CoursesObj.objs_list[i].course_about</p>
                         <a href="#">اعرف أكثر</a>
                           
                        <!-- End OF liveParagraph -->
@@ -239,59 +294,16 @@
               <!-- End of live -->
               </div>
 
-         <!--end of list 2  -->
-       </div>
 
 
+        </div>
+                                  }
+                                  
 
-              <div class="item">
-          <!-- Live Courses div Beginning -->
-                    <div class="live">
+                              }
 
-                       <div class="liveHeader">
-                   
-
-                        <h1>النمذجة والمحاكاة</h1>
-                        
-                         <h6>بدأت منذ 6 دقائق</h6>
-                         <!-- End of liverHeader -->
-                         </div>
-
-                         <div class="details">
-
-                         <h3 class="pull-right">أستاذ دكتور: محمد وحيد <span class="glyphicon glyphicon-record"></span> </h3>
-                         <h3 class="pull-right">تبدأ الساعة: 9:00</h3>
-                         <h3 class="pull-right">تنتهى الساعة: 11:00</h3>
-                         <h3 class="pull-right">المكان: مدرج 4</h3>
-              
-                         <div class="liveParagraph">
-                            
-                        <p>مادة علوم الحاسب هى من المواد الأساسية بكلية الحاسبات والمعلومات ويجب تدريسها</p>
-                        <a href="#">اعرف أكثر</a>
-                          
-                       <!-- End OF liveParagraph -->
-                        </div>
-
-
-                    <!-- End Of details -->
-                    </div>
-    
-                  <img src="images/m1.jpg" class="img-responsive"> 
-                                      
-                                      
-              
-                  <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d858.5130692614085!2d32.30379851897965!3d30.604288665368315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f85904bbe40adb%3A0xb33dae4d688c448a!2z2YXYr9ix2KwgNCDZgdmKINmD2YTZitipINin2YTYrdin2LPYqNin2Kog2YjYp9mE2YXYudmE2YjZhdin2KrYjCDYp9mE2KXYs9mF2KfYudmK2YTZitip2Iwg2YXYtdix!5e0!3m2!1sar!2seg!4v1429626057489" width="200" height="151" frameborder="0" style="border:1">No Connection</iframe>              
-              
-
-              <!-- End of live -->
-              </div>
-
-         <!--end of list 2  -->
-       </div>
-
-
-
-
+}}
+                    
 
         <!-- End of carsoul -->
         </div>
@@ -353,15 +365,16 @@
         
          
   <div class="btn-group-vertical col-lg-11 pull-center  icons " role="group" aria-label="...">
-            <a href="index2.html" class="btn btn-primary btn-lg btn-block ">الفرقة الاولي </a><br>
-            <a href="index2.html" class="btn btn-primary btn-lg btn-block" >الفرقة الثانية </a><br>
+      
+           <form method="post"> <button type="submit" name="1g" class="btn btn-primary btn-lg btn-block ">الفرقة الاولي </button><br></form>
+            <form method="post"><button type="submit" name="2g" class="btn btn-primary btn-lg btn-block" >الفرقة الثانية </button><br></form>
              <a class="btn btn-primary  btn-lg" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     الفرقة الثالثة
             </a>
             <div class="collapse" id="collapseExample">
                <div class="well">
-                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block ">IS </a>
-                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block ">CS </a>
+                    <form method="post"><Button type="sumbit" name="3is" class="btn btn-primary btn-lg  btn-block ">IS </button></form>
+                    <form method="post"><button type="submit" name="3cs"  class="btn btn-primary btn-lg  btn-block ">CS </button></form>
            </div>
            </div> <br>
 
@@ -373,10 +386,11 @@
             </a>
             <div class="collapse" id="collapseExample2">
                <div class="well">
-                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block   ">IS </a>
-                    <a href="index2.html" class="btn btn-primary btn-lg  btn-block  ">CS </a>
+                   <form method="post"> <Button type="sumbit" name="4is" class="btn btn-primary btn-lg  btn-block   ">IS </button></form>
+                    <form method="post"><button type="submit" name="4cs" class="btn btn-primary btn-lg  btn-block  ">CS </button></form>
               </div>
           </div>
+
  </div>
   </div>
    </div>

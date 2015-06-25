@@ -1,0 +1,215 @@
+﻿@{
+    string title;
+    Courses obj;
+    obj = (Courses) Session["m"];
+      AuthData ob;
+    ob= (AuthData) Session["Current"];
+    Session["current"]=ob;
+
+    if(IsPost){
+         //let me try one solution it may work
+         if(ob.loginFlage==true){
+             ob = new AuthData();
+             Session["Current"]=null;
+             Response.Redirect("/");
+         }else{
+      ob.getAuth(Request["username"],Request["password"]);}
+      }
+
+      
+      if(int.Parse(obj.objs_list[0].course_grade)==1){
+          title="الفرقة الأولى"+obj.objs_list[0].course_department;
+      }
+      if(obj.objs_list[0].course_grade=="2"){
+          title="الفرقة الثانية"+obj.objs_list[0].course_department;
+      }
+      if(obj.objs_list[0].course_grade=="3"){
+          title="الفرقة الثالثة"+obj.objs_list[0].course_department;
+      }
+      if(obj.objs_list[0].course_grade=="4"){
+          title="الفرقة الرابعة"+obj.objs_list[0].course_department;
+      }
+      else{
+          title="Unassigned";
+      }
+
+
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+         <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>الفرقة (@obj.objs_list[0].course_grade ) @obj.objs_list[0].course_department</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="styleall.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <link href="http://fonts.googleleapis.com/css?family=raleway:400,300,500,600,700"rel="stylesheet"type="text/css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/notosanskufiarabic.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>  
+    </head>
+    <body>
+                <div class="per-page" id="per-page">
+            <div class= "container-fluid">
+        <nav class="row mainrow navbar-fixed-top">
+          <div class="col-lg-1 logo"><img src="images\logo.png" class="img-responsive logo" alt="logo"></div>
+         <!-- .------------------------------------------------------------------------------------------------------------------------ -->
+           <div class="col-lg-7 menu">
+                   <div class="navbar navbar-default">
+          
+                      <!-- Brand and toggle get grouped for better mobile display -->
+                     <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainmenu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>  
+             
+                      </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse " id="mainmenu"   role="tabpanel">
+
+                            <ul class="nav navbar-nav mainmenu">
+                              <li class="active" role="presentation"><a href="/#home"> الصفحة الرئيسية <span class="sr-only">(current)</span></a></li>
+                              <li><a href="/#courses">المواد الدراسية</a></li>
+                              <li><a href="#">الجداول الدراسيه  </a></li>
+                              <li ><a href="/#about">عن الكلية</a></li>
+                              <!-- After Login-->
+                              <!--<li><a href="#">تقاريرى</a></li>-->
+                              <li ><a href="/#contact">اتصل بنا </a></li>
+
+                
+                             </ul>
+                             <ul>
+
+              
+              
+                             </div><!-- /.navbar-collapse -->
+      
+             </div>
+             </div>  
+           <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+       
+           @{
+            if(ob.loginFlage==false){
+           @Navbar.BeforeLogin()
+            if(ob.loginTry!=0){
+                <script>
+                    alert("@ob.message");
+                </script>
+            }
+
+            }else{
+                @Navbar.AfterLogin(ob.name,ob.user_img)
+            }
+
+
+          
+}
+
+         
+         
+       </nav>
+      </div>
+        <!-- mwad el fr2a el 2ola  -->
+    <div class="courses" id="cources">
+      <div class="container-fluid">
+                     
+            @{
+              
+              for(int i=0;i<obj.objs_list.Length;i++){
+
+                  if(i==0){
+                       @:<div class="row des">
+                  }
+                  if(i==3){
+                      @:<div class="row des2">
+
+                       @:<div class="N1">
+                  }
+                  if(i==6){
+                      @:<div class="row des3">
+
+
+                      @:<div class=" N2">
+           <div class="Crs col-lg-4" id="Crs7">
+
+              <h2>@obj.objs_list[i].course_name </h2>
+              <a href="#"><img src="images/Ensan.jpg"  alt="ensan" class="img-thumbnail"></a>
+              <!-- end of courses -->
+            </div>
+
+            <div class="col-lg-4"></div>
+
+            <div class="col-lg-4"></div>
+
+          
+                      
+                  }
+                  
+                 
+                  if(i!=6){
+                  <div class="Crs col-lg-4">
+              <h2> @obj.objs_list[i].course_name </h2>
+             <!-- <img src="images/احصاء.jpg" class="img-responsive"  alt="احصاء"> -->
+
+             <a href="table2.html"><img src="images/statics.jpg" alt="احصاء" class="img-thumbnail"></a>
+             
+           </div>}
+if(i==2){
+   @:</div>
+
+}
+if(i==5){
+       <!-- End of N1 -->
+          @:</div>
+
+
+
+          <!-- End of des2 -->
+        @:</div>
+
+}
+if(i==6){
+    @:</div> 
+
+          <!-- End of des3 -->
+        @:</div>
+}
+              }}
+      
+        
+
+
+        
+           
+
+
+
+
+        <!-- End of First container -->
+      </div>
+      <!-- End of mwad -->
+    </div>
+
+
+        
+    </body>
+</html>
